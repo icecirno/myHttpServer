@@ -1,0 +1,63 @@
+#pragma once
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <fstream>
+#include <boost/regex.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp> 
+#include <boost/bind.hpp>
+#include <boost/iostreams/filter/gzip.hpp> 
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp> 
+#include <boost/asio.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/thread.hpp>
+#include <boost/filesystem.hpp>
+#define printl(X) std::cout <<"[printl]"<< X << std::endl
+#define print(X) std::cout << X 
+#define debug(X,Y) std::cout <<"[debug]"<< X <<":"<< Y <<std::endl
+#define useLocale imbue
+#define strstrPair(X,Y) std::pair<std::string, std::string>(X,Y)
+using namespace std;
+namespace Tool{
+
+	static std::string encodeTypes[3];
+	static std::string getDate()
+	{
+		std::string result;
+		boost::posix_time::time_facet *lf = new boost::posix_time::time_facet("%a, %d %b %Y %H:%M:%S GMT");
+		std::stringstream ss;
+		ss.useLocale(std::locale(ss.getloc(), lf));
+		ss << boost::posix_time::second_clock::local_time();
+		result = ss.str();
+		return result;
+	}
+	static size_t getGZIP(std::string *terget,std::ifstream &source)
+	{
+		if(terget==0)
+		return 0;
+		boost::iostreams::filtering_ostream fos;
+					fos.push(boost::iostreams::gzip_compressor(boost::iostreams::gzip_params(boost::iostreams::gzip::best_compression)));
+					fos.push(boost::iostreams::back_inserter(*terget));
+					fos <<  source.rdbuf();
+		return terget->size();
+	}
+	static std::string &getGZIP(std::string &terget,const std::string &source)
+	{
+		boost::iostreams::filtering_ostream fos;
+					fos.push(boost::iostreams::gzip_compressor(boost::iostreams::gzip_params(boost::iostreams::gzip::best_compression)));
+					fos.push(boost::iostreams::back_inserter(terget));
+					fos <<  source;
+		return terget;
+	}
+	static unsigned int getHashCode(const std::string & str)
+	{
+		int h = 0;
+		for (int i = 0; i < str.length(); i++) {
+			h = (h << 5) - h + str[i];
+		}
+		return h;
+	}
+}
