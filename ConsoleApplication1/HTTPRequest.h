@@ -2,44 +2,49 @@
 #include"tool"
 class HTTPRequest
 {	
+	
 public:
+	bool hasParm = 0;
 	boost::asio::ip::tcp::socket* socket=0;
-	char data[1024];
-	int lenth=0;
+	boost::asio::streambuf *buffer;
+	char data[2049] = {0};
+	char body[2049] = {0};
+	std::string afterURL;
+	std::string type;
+	std::string URL;
+	std::map<std::string,std::string> *heads=0;
+	size_t headLength=0;
 	bool isComplished = 0;
 	HTTPRequest(boost::asio::ip::tcp::socket* socket)
-	{
+	{		
 		this->socket = socket;
+		buffer = new boost::asio::streambuf(2048);
+	}
+	bool is_open()
+	{
+		if (socket == 0)
+			return 0;
+		return socket->is_open();
+	}
+	
+	void release()
+	{
+		if (socket == 0)
+			return;
+		if (socket->is_open())
+		{
+			socket->cancel(); 
+			socket->close();
+		}
+		socket->release();
+		delete socket;
 	}
 	~HTTPRequest()
 	{
+		delete buffer;
+		delete heads;
 	}
-	void complished(int len)
-	{
-		lenth = len;
-		string s(data, len);
-		std::vector<std::string> heads;
-		std::vector<std::string> head;
-		boost::split(heads, s, boost::is_any_of("[\r\n]"));
-		for(int i=heads.size()-1;i>=0;--i)
-			if (heads[i].size())
-			{
-				boost::split(head, heads[i], boost::is_any_of("[:]"));
-				for (int i = head.size() - 1; i >= 0; --i)
-				{
-				}
-				head.clear();
-			}
-		isComplished = 1;
-	}
-	int needReadBody()
-	{
-		return 0;
-	}
-	void setBody(boost::asio::streambuf&buffer)
-	{
-
-	}
+	
 
 };
 

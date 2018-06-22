@@ -1,18 +1,10 @@
-﻿  HTTPSender.cpp
+﻿  HTTPServer.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
   - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPRequest.h(24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPRequest.h(28): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  HTTPServer.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
-  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPRequest.h(24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPRequest.h(28): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPReader.h(46): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+f:\template\boost\temp3\consoleapplication1\consoleapplication1\StaticFileManager.h(3): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPReader.h(34): warning C4102: “other”: 未引用的标签
 HTTPServer.cpp(12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 HTTPServer.cpp(19): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 HTTPServer.cpp(26): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
@@ -21,13 +13,12 @@ HTTPServer.cpp(26): warning C4267: “初始化”: 从“size_t”转换到“i
   - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
   - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPRequest.h(24): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPRequest.h(28): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPReader.h(46): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+f:\template\boost\temp3\consoleapplication1\consoleapplication1\StaticFileManager.h(3): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+f:\template\boost\temp3\consoleapplication1\consoleapplication1\HTTPReader.h(34): warning C4102: “other”: 未引用的标签
   正在生成代码
-  360 of 3728 functions ( 9.7%) were compiled, the rest were copied from previous compilation.
+  11 of 5936 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    91 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   ConsoleApplication1.vcxproj -> F:\template\boost\temp3\ConsoleApplication1\x64\Release\ConsoleApplication1.exe
   ConsoleApplication1.vcxproj -> F:\template\boost\temp3\ConsoleApplication1\x64\Release\ConsoleApplication1.pdb (Full PDB)

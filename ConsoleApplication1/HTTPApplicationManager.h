@@ -3,19 +3,23 @@
 #include"HTTPRequest.h"
 #include"HTTPResponse.h"
 #include "ArgumentHandle.h"
+#include "StaticFileManager.h"
+#include "CachedStaticFile.h"
+
 class HTTPApplicationManager
 {
-public:
-	HTTPApplicationManager(ArgumentHandle* ah)
+	StaticFileManager files; 
+	
+	HTTPApplicationManager(ArgumentHandle* ah) :files(ah)
 	{}
+	
+public:
+	
 	~HTTPApplicationManager()
 	{}
-	HTTPResponse *exec(HTTPRequest*r)
-	{
-		if (r == 0)
-			return new HTTPResponse(r->socket);
-		return new HTTPResponse(r->socket);
-		debug("HTTPApplicationManager","exec");
-	}
+	static HTTPResponse *exec(HTTPRequest*r);
+	static void handleResponse(HTTPResponse &respones, HTTPRequest&request, StaticFileManager& files);
+	static HTTPApplicationManager *instance;
+	static HTTPApplicationManager *getInstance(ArgumentHandle* ah);
 };
 

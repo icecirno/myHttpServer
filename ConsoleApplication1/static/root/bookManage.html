@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网上购书系统</title>
+</head>
+
+<body scroll="no">
+<form name="JSGLForm" method="post" action="/bookstore/bookquery.html?method=init">
+	<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr style="height:2%">
+			<td><table border="0" width="100%" align="center">
+					<tr>
+						<td class="title_td">图书一览</td>
+					</tr>
+	           </table>
+			</td>
+		</tr>
+		<tr style="height:96%">
+			<td><table border="1" width="70%">
+					<tr>
+						<td width="12%" class="item_td">&nbsp;图书名称</td>
+						<td class="input_td" style="width:20%">
+						<input type="text" name="bookName" value="" style="width:100%" class="input_input" size="30">
+						</td>
+						<td style="width:10%">&nbsp;</td>
+						<td width="10%" class="item_td">&nbsp;出版社：</td>
+						<td width="20%" class="input_td">
+						<select name="roleTypeSelect" style="width:100%" class="input_drop">
+						<option value=""></option>
+						<option value="00">人民邮电出版社</option>
+						<option value="01">清华大学出版社</option>
+						<option value="02">电子工业出版社</option>
+						</select>
+						</td>
+						<td style="width:1%">&nbsp;</td>
+						<td width="29%">
+						<button id="btnSearch" name="btnSearch" style="width:20%">查询
+						</button>
+						</td>
+					</tr>
+				</table>
+				<table border="0" width="100%" align="center">
+				<tr style="height:1px" class="">
+				<td class="title_td">图书列表&nbsp;</td>
+				</tr>
+				</table>
+				
+				<div class="list_div" style="height:87%">
+				<table border="1" align="left" cellspacing="0" class="list_table" id="senfe" style="width:99%">
+				<thead>
+				<tr>
+				<th width="2%"><input type="checkbox" name="checkAll"></th>
+				<th width="5%"><span style="font-weight:400">序号</span></th>
+				<th width="28%"><span style="font-weight:400">书名</span></th>
+				<th width="20%"><span style="font-weight:400">出版社</span></th>
+				<th width="16%"><span style="font-weight:400">ISBN</span></th>
+				<th width="15%"><span style="font-weight:400">价格（￥）</span></th>
+				<th width=""><span style="font-weight:400">库存量（本/套）</span></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td align="center" width="1%">
+				<input type="checkbox" name="userId" value="" class="input_radio">
+				</td>
+				<td align="center">1</td>
+				<td>admin01</td>
+				<td align="center">人民邮电出版社</td>
+				<td align="center">2020335980</td>
+				<td align="center">8.00</td>
+				<td align="center" nowrap="nowrap">200</td>
+				</tr>
+				<tr>
+				<td align="center" width="1%">
+				<input type="checkbox" name="userId" value="" class="input_radio">
+				</td>
+				<td align="center">2</td>
+				<td>admin02</td>
+				<td align="center">清华大学出版社</td>
+				<td align="center">2020335980</td>
+				<td align="center">155.89</td>
+				<td align="center" nowrap="nowrap">200</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>
+				<div style="position:absolute;left:0px;botton:1px;z-index:1000;width:40%;" id="excel">
+				<table style="width:100%">
+				<tr>
+				<td style="cursor:hand;">
+				<button style="width:30%">新增图书</button>
+				&nbsp;
+				<button style="width:20%">删除</button>
+				&nbsp;
+				<button style="width:40%">修改图书信息</button>
+				</td>
+				</tr>
+				</table>	
+				</div>
+		    </td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

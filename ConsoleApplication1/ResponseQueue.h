@@ -5,7 +5,7 @@ class ResponseQueue :
 	public Queue<HTTPResponse>
 {
 public:
-	ResponseQueue();
-	~ResponseQueue();
+	ResponseQueue() {}
+	~ResponseQueue() {}
 };
 

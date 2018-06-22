@@ -1,4 +1,5 @@
 #pragma once
+#include "HTTPRequest.h"
 #include "ArgumentHandle.h"
 #include "Queue.h"
 class ConnectionQueue
@@ -7,13 +8,14 @@ public:
 	ConnectionQueue()
 	{
 	}
-	void keepThisConnection(boost::asio::ip::tcp::socket* c)
+	void keepThisConnection(HTTPRequest* c)
 	{
 		if (c == 0)return;
 		if (!c->is_open())return;
 		keepconnectQueue.locker.lock();
 		keepconnectQueue.data.push_back(c);
 		keepconnectQueue.locker.unlock();
+		debug("keepKLConnection", c->socket->remote_endpoint().address().to_string());
 	}
 	ConnectionQueue& operator<<(boost::asio::ip::tcp::socket* c)
 	{
@@ -31,8 +33,6 @@ public:
 			{
 				if ((*i) != 0)
 				{
-					(*i)->cancel();
-					(*i)->close();
 					(*i)->release();
 					delete (*i);
 				}
@@ -63,7 +63,6 @@ public:
 		{
 			c = *currenQueue.data.begin();
 			currenQueue.data.pop_front();
-			debug("queue", "gotone");
 		}
 		currenQueue.locker.unlock();
 		return c;
@@ -72,21 +71,20 @@ public:
 	{
 		return currenQueue.size();
 	}
-	boost::asio::ip::tcp::socket* getOthers()
+	HTTPRequest* getOthers()
 	{
-		boost::asio::ip::tcp::socket* c = 0;
+		HTTPRequest* c = 0;
 		keepconnectQueue.locker.lock();
 		if (keepconnectQueue.data.size())
 		{
-			c = *keepconnectQueue.data.begin();
+			c = *(keepconnectQueue.data.begin());
 			keepconnectQueue.data.pop_front();
-			debug("queue", "gotone");
 		}
 		keepconnectQueue.locker.unlock();
 		return c;
 	}
 	~ConnectionQueue() {}
 	Queue<boost::asio::ip::tcp::socket> currenQueue;
-	Queue<boost::asio::ip::tcp::socket> keepconnectQueue;
+	Queue<HTTPRequest> keepconnectQueue;
 };
 

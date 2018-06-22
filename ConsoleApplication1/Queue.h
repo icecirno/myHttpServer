@@ -35,7 +35,6 @@ public:
 		{
 			c = *data.begin();
 			data.pop_front();
-			debug("queue", "gotone");
 		}
 		locker.unlock();
 		return c;

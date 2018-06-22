@@ -3,16 +3,18 @@
 class ArgumentHandle
 {
 public:
-	ArgumentHandle(int argc, char** argv)
-	{
+	ArgumentHandle()
+	{	
 
 	}
+	bool useDefault = 1;
 	int serverPort=80;
 	int readerCounts=2;
-	int senderCounts = 2;
+	int senderCounts =2;
 	int processorCounts = 2;
-	string sourcePath="\\source";
-	string xmlPath="\\setting";
+	string mainAppPath = "";
+	string staticPath="\\static";
+	string xmlPath="\\setting.xml";
 	~ArgumentHandle()
 	{
 	}

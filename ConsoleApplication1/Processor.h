@@ -6,10 +6,9 @@ class Processor
 {
 	ResponseQueue &responseQueue;
 	RequestQueue &requestQueue;
-	HTTPApplicationManager &applicationManager;
 public:
-	Processor(HTTPApplicationManager &am,RequestQueue &req, ResponseQueue &res):
-		requestQueue(req), responseQueue(res), applicationManager(am)
+	Processor(RequestQueue &req, ResponseQueue &res):
+		requestQueue(req), responseQueue(res)
 	{
 	}
 	void stop()
@@ -25,13 +24,11 @@ public:
 			
 			if (r == 0)
 				goto end;
-			debug("Processor", "");
 			if (r->socket->is_open())
-				debug("Processor", "socketOK");
-			responseQueue << applicationManager.exec(r);
+			responseQueue << HTTPApplicationManager::exec(r);
 			continue;
 		end:
-			boost::this_thread::sleep(boost::posix_time::seconds(1));
+			boost::this_thread::sleep(boost::posix_time::microseconds(100));
 		}
 		this->enable = 0;
 		debug("stop", *enable);

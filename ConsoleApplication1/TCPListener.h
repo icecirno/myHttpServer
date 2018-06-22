@@ -1,5 +1,4 @@
 #pragma once
-#include "tool"
 #include "ArgumentHandle.h"
 class HTTPServer;
 typedef void(*AcceptCallBack)(HTTPServer *,boost::asio::ip::tcp::socket *);
@@ -20,7 +19,7 @@ public:
 	size_t startlisten()
 	{
 		enable = 1;
-		debug("startlisten", "");
+		debug("start listen at", port);
 		return ioService.run();
 	}
 	void stop()

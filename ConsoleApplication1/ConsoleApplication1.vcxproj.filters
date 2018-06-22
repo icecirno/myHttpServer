@@ -18,46 +18,13 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HTTPRequest.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HTTPReader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HTTPSender.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="queue.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="requestQueue.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="connectionQueue.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="responseQueue.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HTTPApplication.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="HTTPServer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TCPListener.h">
       <Filter>头文件</Filter>
     </ClCompile>
-    <ClCompile Include="Processor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HTTPResponse.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CachedStaticFile.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticFileManager.cpp">
+    <ClCompile Include="HTTPApplicationManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,9 +56,6 @@
     <ClInclude Include="responseQueue.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="tool">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Processor.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -105,6 +69,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="StaticFileManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tool">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

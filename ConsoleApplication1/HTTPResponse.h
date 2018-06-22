@@ -23,9 +23,20 @@ public:
 	}
 	void complish()
 	{
+		if (isComplished)
+			return;
+		if (bodys.size() == 0)
+		{
+			addHead("Content-Length", "14");
+			addHead("Content-Type", "text/html");
+			bodys.push_back("server is down");
+			isComplished = 1;
+			return;
+		}
 		if (bodys.size() == 1)
 		{
 			addHead("Content-Length", std::to_string(bodys[0].size()));
+			debug("HTTPResponse lenth", bodys[0].size());
 		}
 		else {
 			addHead("Transfer-Encoding", "chunked");
@@ -35,14 +46,12 @@ public:
 		{
 			printl((*i).first + ": " + (*i).second + "rn");
 		}
-		for (auto i =bodys.begin(); i != bodys.end(); ++i)
-		{
-			printl((*i));
-		}
 	}
-	HTTPResponse(HTTPRequest *req, bool needCompress):socket(req->socket)
+	HTTPResponse(HTTPRequest *req, bool needCompress=0):socket(req->socket)
 	{
-		
+		heads = new std::map<std::string, std::string>();
+		addHead("Server", "myServer");
+	    addHead("Date", Tool::getDate());
 	}
 	void addHead(const char* tab, const char* value)
 	{
@@ -72,18 +81,35 @@ public:
 	}
 	void addBody(CachedStaticFile* body)
 	{
+		if (body == 0)
+			return;
+		addHead("Content-Length", std::to_string(body->len));
+		addHead("Content-Type", body->type);
 		bodys.push_back(*body->data);
 		if(body->isCompress)
 			addHead("Content-Encoding", "gzip");
+		isComplished = 1;
 	}
-	HTTPResponse& operator<<(const std::string &body)
+	HTTPResponse* operator<<(const std::string &body)
 	{
 	}
-	HTTPResponse& operator<<(CachedStaticFile &body)
+	HTTPResponse* operator<<(CachedStaticFile *body)
 	{
+		addBody(body);
+		return this;
 	}
 	~HTTPResponse()
 	{
+		if (socket != 0)
+		{
+			if(socket->is_open())
+			{
+				socket->close();
+			}
+			socket->release();
+			delete socket;
+		}
+		delete heads;
 	}
 };
 
