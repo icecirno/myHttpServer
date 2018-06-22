@@ -1,8 +1,0 @@
-﻿  HTTPServer.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
-  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
-f:\template\boost\temp3\consoleapplication1\consoleapplication1\httpserver.cpp(14): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  ConsoleApplication1.vcxproj -> F:\template\boost\temp3\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe
-  ConsoleApplication1.vcxproj -> F:\template\boost\temp3\ConsoleApplication1\x64\Debug\ConsoleApplication1.pdb (Full PDB)
