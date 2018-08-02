@@ -21,6 +21,20 @@ HTTPApplicationManager*HTTPApplicationManager::getInstance(ArgumentHandle* ah)
 }
 void HTTPApplicationManager::handleResponse(HTTPResponse &respones,HTTPRequest&request, StaticFileManager& files)
 {
-	respones<< files.getFile(files.remapFile(request.URL));
+	CachedStaticFile* f=files.getFile(files.remapFile(request.URL));
+	if (f)
+	{
+		respones << f;
+		respones.complish();
+		return;
+	}
+	application*app = files.getApp(request.URL);
+	if (app)
+	{
+		app->run(request, respones);
+		respones.complish();
+		return;
+	}
+	respones << f;
 	respones.complish();
 }

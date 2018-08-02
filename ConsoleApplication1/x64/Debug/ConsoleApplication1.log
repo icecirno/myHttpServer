@@ -1,0 +1,764 @@
+﻿  TCPListener.h
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): error C4996: 'std::copy::_Unchecked_iterators::_Deprecate': Call to 'std::copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): note: 参见“std::copy::_Unchecked_iterators::_Deprecate”的声明
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(720): note: 参见对正在编译的函数 模板 实例化“_OutIt *std::copy<const _Elem*,char*>(_InIt,_InIt,_OutIt)”的引用
+          with
+          [
+              _OutIt=char *,
+              _Elem=char,
+              _InIt=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(714): note: 编译类 模板 成员函数“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”时
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(209): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”的引用
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(53): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::read_filter_impl<boost::iostreams::multichar_tag>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::read<Filter,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(78): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::flt_wrapper_impl<boost::iostreams::input>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(Filter &,Source *,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(235): note: 编译类 模板 成员函数“int boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>::underflow(void)”时
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\stream_buffer.hpp(66): note: 参见对正在编译的类 模板 实例化“boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>”的引用
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(254): note: 参见对正在编译的类 模板 实例化“boost::iostreams::stream_buffer<component_type,std::char_traits<char>,Alloc,Mode>”的引用
+          with
+          [
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(138): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>::std_allocator_void”的引用
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(146): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(54): note: 参见对正在编译的类 模板 实例化“boost::arg<9>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(53): note: 参见对正在编译的类 模板 实例化“boost::arg<8>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(52): note: 参见对正在编译的类 模板 实例化“boost::arg<7>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(51): note: 参见对正在编译的类 模板 实例化“boost::arg<6>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(50): note: 参见对正在编译的类 模板 实例化“boost::arg<5>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(49): note: 参见对正在编译的类 模板 实例化“boost::arg<4>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(48): note: 参见对正在编译的类 模板 实例化“boost::arg<3>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(47): note: 参见对正在编译的类 模板 实例化“boost::arg<2>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(46): note: 参见对正在编译的类 模板 实例化“boost::arg<1>”的引用
+  main.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\staticfilemanager.h(3): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpreader.h(34): warning C4102: “other”: 未引用的标签
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): error C4996: 'std::copy::_Unchecked_iterators::_Deprecate': Call to 'std::copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): note: 参见“std::copy::_Unchecked_iterators::_Deprecate”的声明
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(720): note: 参见对正在编译的函数 模板 实例化“_OutIt *std::copy<const _Elem*,char*>(_InIt,_InIt,_OutIt)”的引用
+          with
+          [
+              _OutIt=char *,
+              _Elem=char,
+              _InIt=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(714): note: 编译类 模板 成员函数“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”时
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(209): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”的引用
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(53): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::read_filter_impl<boost::iostreams::multichar_tag>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::read<Filter,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(78): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::flt_wrapper_impl<boost::iostreams::input>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(Filter &,Source *,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(235): note: 编译类 模板 成员函数“int boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>::underflow(void)”时
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\stream_buffer.hpp(66): note: 参见对正在编译的类 模板 实例化“boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>”的引用
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(254): note: 参见对正在编译的类 模板 实例化“boost::iostreams::stream_buffer<component_type,std::char_traits<char>,Alloc,Mode>”的引用
+          with
+          [
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(138): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>::std_allocator_void”的引用
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(146): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(54): note: 参见对正在编译的类 模板 实例化“boost::arg<9>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(53): note: 参见对正在编译的类 模板 实例化“boost::arg<8>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(52): note: 参见对正在编译的类 模板 实例化“boost::arg<7>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(51): note: 参见对正在编译的类 模板 实例化“boost::arg<6>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(50): note: 参见对正在编译的类 模板 实例化“boost::arg<5>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(49): note: 参见对正在编译的类 模板 实例化“boost::arg<4>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(48): note: 参见对正在编译的类 模板 实例化“boost::arg<3>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(47): note: 参见对正在编译的类 模板 实例化“boost::arg<2>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(46): note: 参见对正在编译的类 模板 实例化“boost::arg<1>”的引用
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2983): error C4996: 'std::equal::_Unchecked_iterators::_Deprecate': Call to 'std::equal' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2983): note: 参见“std::equal::_Unchecked_iterators::_Deprecate”的声明
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(3008): note: 参见对正在编译的函数 模板 实例化“bool std::equal<_InIt1,_InIt2,std::equal_to<void>>(_InIt1,_InIt1,_InIt2,_Pr)”的引用
+          with
+          [
+              _InIt1=const char *,
+              _InIt2=const char *,
+              _Pr=std::equal_to<void>
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\algorithm\equal.hpp(113): note: 参见对正在编译的函数 模板 实例化“bool std::equal<RandomAccessTraversalReadableIterator1,RandomAccessTraversalReadableIterator2>(_InIt1,_InIt1,_InIt2)”的引用
+          with
+          [
+              RandomAccessTraversalReadableIterator1=const char *,
+              RandomAccessTraversalReadableIterator2=const char *,
+              _InIt1=const char *,
+              _InIt2=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\algorithm\equal.hpp(141): note: 参见对正在编译的函数 模板 实例化“bool boost::range_detail::equal_impl<SinglePassTraversalReadableIterator1,SinglePassTraversalReadableIterator2>(RandomAccessTraversalReadableIterator1,RandomAccessTraversalReadableIterator1,RandomAccessTraversalReadableIterator2,RandomAccessTraversalReadableIterator2,std::random_access_iterator_tag,std::random_access_iterator_tag)”的引用
+          with
+          [
+              SinglePassTraversalReadableIterator1=const char *,
+              SinglePassTraversalReadableIterator2=const char *,
+              RandomAccessTraversalReadableIterator1=const char *,
+              RandomAccessTraversalReadableIterator2=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\algorithm\equal.hpp(179): note: 参见对正在编译的函数 模板 实例化“bool boost::range_detail::equal<const char*,const char*>(SinglePassTraversalReadableIterator1,SinglePassTraversalReadableIterator1,SinglePassTraversalReadableIterator2,SinglePassTraversalReadableIterator2)”的引用
+          with
+          [
+              SinglePassTraversalReadableIterator1=const char *,
+              SinglePassTraversalReadableIterator2=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\iterator_range_core.hpp(646): note: 参见对正在编译的函数 模板 实例化“bool boost::range::equal<boost::iterator_range<const char *>,boost::iterator_range<const char *>>(const SinglePassRange1 &,const SinglePassRange2 &)”的引用
+          with
+          [
+              SinglePassRange1=boost::iterator_range<const char *>,
+              SinglePassRange2=boost::iterator_range<const char *>
+          ]
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\find_iterator.hpp(333): note: 参见对正在编译的函数 模板 实例化“bool boost::operator ==<const char*,const char*>(const boost::iterator_range<const char *> &,const boost::iterator_range<const char *> &)”的引用
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\find_iterator.hpp(327): note: 编译类 模板 成员函数“bool boost::algorithm::split_iterator<input_iterator_type>::equal(const boost::algorithm::split_iterator<input_iterator_type> &) const”时
+  f:\template\boost\boost_1_67_0\boost\iterator\iterator_facade.hpp(568): note: 参见对正在编译的函数 模板 实例化“bool boost::algorithm::split_iterator<input_iterator_type>::equal(const boost::algorithm::split_iterator<input_iterator_type> &) const”的引用
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(620): note: 参见对正在编译的类 模板 实例化“boost::algorithm::split_iterator<input_iterator_type>”的引用
+  f:\template\boost\boost_1_67_0\boost\iterator\transform_iterator.hpp(53): note: 参见对正在编译的类 模板 实例化“std::iterator_traits<Iterator>”的引用
+          with
+          [
+              Iterator=find_iterator_type
+          ]
+  f:\template\boost\boost_1_67_0\boost\iterator\transform_iterator.hpp(80): note: 参见对正在编译的类 模板 实例化“boost::iterators::detail::transform_iterator_base<UnaryFunc,Iterator,Reference,Value>”的引用
+          with
+          [
+              UnaryFunc=copy_range_type,
+              Iterator=find_iterator_type,
+              Reference=boost::iterators::use_default,
+              Value=boost::iterators::use_default
+          ]
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\iter_find.hpp(169): note: 参见对正在编译的类 模板 实例化“boost::iterators::transform_iterator<copy_range_type,find_iterator_type,boost::iterators::use_default,boost::iterators::use_default>”的引用
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\regex.hpp(478): note: 参见对正在编译的函数 模板 实例化“SequenceSequenceT &boost::algorithm::iter_split<SequenceSequenceT,const char[2049],boost::algorithm::detail::find_regexF<boost::basic_regex<char,boost::regex_traits<char,boost::w32_regex_traits<charT>>>>>(SequenceSequenceT &,RangeT (&),FinderT)”的引用
+          with
+          [
+              SequenceSequenceT=std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>,
+              charT=char,
+              RangeT=const char [2049],
+              FinderT=boost::algorithm::detail::find_regexF<boost::basic_regex<char,boost::regex_traits<char,boost::w32_regex_traits<char>>>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpreader.h(118): note: 参见对正在编译的函数 模板 实例化“SequenceSequenceT &boost::algorithm::split_regex<std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<_Ty>>,char[2049],char,boost::regex_traits<char,boost::w32_regex_traits<charT>>>(SequenceSequenceT &,const RangeT (&),const boost::basic_regex<charT,boost::regex_traits<charT,boost::w32_regex_traits<charT>>> &,boost::regex_constants::match_flag_type)”的引用
+          with
+          [
+              SequenceSequenceT=std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>,
+              _Ty=std::basic_string<char,std::char_traits<char>,std::allocator<char>>,
+              charT=char,
+              RangeT=char [2049]
+          ]
+  IOServerPool.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\ioserverpool.cpp(26): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): error C4996: 'std::copy::_Unchecked_iterators::_Deprecate': Call to 'std::copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): note: 参见“std::copy::_Unchecked_iterators::_Deprecate”的声明
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(720): note: 参见对正在编译的函数 模板 实例化“_OutIt *std::copy<const _Elem*,char*>(_InIt,_InIt,_OutIt)”的引用
+          with
+          [
+              _OutIt=char *,
+              _Elem=char,
+              _InIt=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(714): note: 编译类 模板 成员函数“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”时
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(209): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”的引用
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(53): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::read_filter_impl<boost::iostreams::multichar_tag>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::read<Filter,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(78): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::flt_wrapper_impl<boost::iostreams::input>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(Filter &,Source *,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(235): note: 编译类 模板 成员函数“int boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>::underflow(void)”时
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\stream_buffer.hpp(66): note: 参见对正在编译的类 模板 实例化“boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>”的引用
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(254): note: 参见对正在编译的类 模板 实例化“boost::iostreams::stream_buffer<component_type,std::char_traits<char>,Alloc,Mode>”的引用
+          with
+          [
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(138): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>::std_allocator_void”的引用
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(146): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(54): note: 参见对正在编译的类 模板 实例化“boost::arg<9>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(53): note: 参见对正在编译的类 模板 实例化“boost::arg<8>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(52): note: 参见对正在编译的类 模板 实例化“boost::arg<7>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(51): note: 参见对正在编译的类 模板 实例化“boost::arg<6>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(50): note: 参见对正在编译的类 模板 实例化“boost::arg<5>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(49): note: 参见对正在编译的类 模板 实例化“boost::arg<4>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(48): note: 参见对正在编译的类 模板 实例化“boost::arg<3>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(47): note: 参见对正在编译的类 模板 实例化“boost::arg<2>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(46): note: 参见对正在编译的类 模板 实例化“boost::arg<1>”的引用
+  HTTPServer.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\staticfilemanager.h(3): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpreader.h(34): warning C4102: “other”: 未引用的标签
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpserver.cpp(12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpserver.cpp(19): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpserver.cpp(26): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): error C4996: 'std::copy::_Unchecked_iterators::_Deprecate': Call to 'std::copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2372): note: 参见“std::copy::_Unchecked_iterators::_Deprecate”的声明
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(720): note: 参见对正在编译的函数 模板 实例化“_OutIt *std::copy<const _Elem*,char*>(_InIt,_InIt,_OutIt)”的引用
+          with
+          [
+              _OutIt=char *,
+              _Elem=char,
+              _InIt=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(714): note: 编译类 模板 成员函数“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”时
+  f:\template\boost\boost_1_67_0\boost\iostreams\filter\gzip.hpp(209): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read_string(char *,std::streamsize,std::string &)”的引用
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(212): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::basic_gzip_compressor<std::allocator<char>>::read<Source>(Source &,boost::iostreams::basic_gzip_compressor<std::allocator<char>>::char_type *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\read.hpp(53): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::read_filter_impl<boost::iostreams::multichar_tag>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::read<Filter,Source>(T &,Source &,char *,std::streamsize)”的引用
+          with
+          [
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\adapter\concept_adapter.hpp(78): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::flt_wrapper_impl<boost::iostreams::input>::read<boost::iostreams::basic_gzip_compressor<std::allocator<char>>,Source>(Filter &,Source *,char *,std::streamsize)”的引用
+          with
+          [
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>,
+              Filter=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(256): note: 参见对正在编译的函数 模板 实例化“std::streamsize boost::iostreams::detail::concept_adapter<T>::read<boost::iostreams::detail::linked_streambuf<Ch,std::char_traits<char>>>(char *,std::streamsize,Source *)”的引用
+          with
+          [
+              T=component_type,
+              Ch=char,
+              Source=boost::iostreams::detail::linked_streambuf<char,std::char_traits<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\detail\streambuf\indirect_streambuf.hpp(235): note: 编译类 模板 成员函数“int boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>::underflow(void)”时
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\stream_buffer.hpp(66): note: 参见对正在编译的类 模板 实例化“boost::iostreams::detail::indirect_streambuf<T,Tr,Alloc,Mode>”的引用
+          with
+          [
+              T=component_type,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(254): note: 参见对正在编译的类 模板 实例化“boost::iostreams::stream_buffer<component_type,std::char_traits<char>,Alloc,Mode>”的引用
+          with
+          [
+              Alloc=std::allocator<char>,
+              Mode=boost::iostreams::output
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(205): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(496): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_base<boost::iostreams::chain<Mode,Ch,Tr,Alloc>,Ch,Tr,Alloc,Mode>::push<T>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Mode=boost::iostreams::output,
+              Ch=char,
+              Tr=std::char_traits<char>,
+              Alloc=std::allocator<char>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\iostreams\chain.hpp(484): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push_impl<T>(const T &,std::streamsize,std::streamsize)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\tool(94): note: 参见对正在编译的函数 模板 实例化“void boost::iostreams::detail::chain_client<Chain>::push<boost::iostreams::basic_gzip_compressor<std::allocator<char>>>(const T &,std::streamsize,std::streamsize,void *)”的引用
+          with
+          [
+              Chain=boost::iostreams::chain<boost::iostreams::output,char,std::char_traits<char>,std::allocator<char>>,
+              T=boost::iostreams::basic_gzip_compressor<std::allocator<char>>
+          ]
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(138): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>::std_allocator_void”的引用
+  f:\template\boost\boost_1_67_0\boost\asio\use_future.hpp(146): note: 参见对正在编译的类 模板 实例化“boost::asio::use_future_t<std::allocator<void>>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(54): note: 参见对正在编译的类 模板 实例化“boost::arg<9>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(53): note: 参见对正在编译的类 模板 实例化“boost::arg<8>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(52): note: 参见对正在编译的类 模板 实例化“boost::arg<7>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(51): note: 参见对正在编译的类 模板 实例化“boost::arg<6>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(50): note: 参见对正在编译的类 模板 实例化“boost::arg<5>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(49): note: 参见对正在编译的类 模板 实例化“boost::arg<4>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(48): note: 参见对正在编译的类 模板 实例化“boost::arg<3>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(47): note: 参见对正在编译的类 模板 实例化“boost::arg<2>”的引用
+  f:\template\boost\boost_1_67_0\boost\bind\placeholders.hpp(46): note: 参见对正在编译的类 模板 实例化“boost::arg<1>”的引用
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2983): error C4996: 'std::equal::_Unchecked_iterators::_Deprecate': Call to 'std::equal' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2983): note: 参见“std::equal::_Unchecked_iterators::_Deprecate”的声明
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(3008): note: 参见对正在编译的函数 模板 实例化“bool std::equal<_InIt1,_InIt2,std::equal_to<void>>(_InIt1,_InIt1,_InIt2,_Pr)”的引用
+          with
+          [
+              _InIt1=const char *,
+              _InIt2=const char *,
+              _Pr=std::equal_to<void>
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\algorithm\equal.hpp(113): note: 参见对正在编译的函数 模板 实例化“bool std::equal<RandomAccessTraversalReadableIterator1,RandomAccessTraversalReadableIterator2>(_InIt1,_InIt1,_InIt2)”的引用
+          with
+          [
+              RandomAccessTraversalReadableIterator1=const char *,
+              RandomAccessTraversalReadableIterator2=const char *,
+              _InIt1=const char *,
+              _InIt2=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\algorithm\equal.hpp(141): note: 参见对正在编译的函数 模板 实例化“bool boost::range_detail::equal_impl<SinglePassTraversalReadableIterator1,SinglePassTraversalReadableIterator2>(RandomAccessTraversalReadableIterator1,RandomAccessTraversalReadableIterator1,RandomAccessTraversalReadableIterator2,RandomAccessTraversalReadableIterator2,std::random_access_iterator_tag,std::random_access_iterator_tag)”的引用
+          with
+          [
+              SinglePassTraversalReadableIterator1=const char *,
+              SinglePassTraversalReadableIterator2=const char *,
+              RandomAccessTraversalReadableIterator1=const char *,
+              RandomAccessTraversalReadableIterator2=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\algorithm\equal.hpp(179): note: 参见对正在编译的函数 模板 实例化“bool boost::range_detail::equal<const char*,const char*>(SinglePassTraversalReadableIterator1,SinglePassTraversalReadableIterator1,SinglePassTraversalReadableIterator2,SinglePassTraversalReadableIterator2)”的引用
+          with
+          [
+              SinglePassTraversalReadableIterator1=const char *,
+              SinglePassTraversalReadableIterator2=const char *
+          ]
+  f:\template\boost\boost_1_67_0\boost\range\iterator_range_core.hpp(646): note: 参见对正在编译的函数 模板 实例化“bool boost::range::equal<boost::iterator_range<const char *>,boost::iterator_range<const char *>>(const SinglePassRange1 &,const SinglePassRange2 &)”的引用
+          with
+          [
+              SinglePassRange1=boost::iterator_range<const char *>,
+              SinglePassRange2=boost::iterator_range<const char *>
+          ]
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\find_iterator.hpp(333): note: 参见对正在编译的函数 模板 实例化“bool boost::operator ==<const char*,const char*>(const boost::iterator_range<const char *> &,const boost::iterator_range<const char *> &)”的引用
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\find_iterator.hpp(327): note: 编译类 模板 成员函数“bool boost::algorithm::split_iterator<input_iterator_type>::equal(const boost::algorithm::split_iterator<input_iterator_type> &) const”时
+  f:\template\boost\boost_1_67_0\boost\iterator\iterator_facade.hpp(568): note: 参见对正在编译的函数 模板 实例化“bool boost::algorithm::split_iterator<input_iterator_type>::equal(const boost::algorithm::split_iterator<input_iterator_type> &) const”的引用
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(620): note: 参见对正在编译的类 模板 实例化“boost::algorithm::split_iterator<input_iterator_type>”的引用
+  f:\template\boost\boost_1_67_0\boost\iterator\transform_iterator.hpp(53): note: 参见对正在编译的类 模板 实例化“std::iterator_traits<Iterator>”的引用
+          with
+          [
+              Iterator=find_iterator_type
+          ]
+  f:\template\boost\boost_1_67_0\boost\iterator\transform_iterator.hpp(80): note: 参见对正在编译的类 模板 实例化“boost::iterators::detail::transform_iterator_base<UnaryFunc,Iterator,Reference,Value>”的引用
+          with
+          [
+              UnaryFunc=copy_range_type,
+              Iterator=find_iterator_type,
+              Reference=boost::iterators::use_default,
+              Value=boost::iterators::use_default
+          ]
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\iter_find.hpp(169): note: 参见对正在编译的类 模板 实例化“boost::iterators::transform_iterator<copy_range_type,find_iterator_type,boost::iterators::use_default,boost::iterators::use_default>”的引用
+  f:\template\boost\boost_1_67_0\boost\algorithm\string\regex.hpp(478): note: 参见对正在编译的函数 模板 实例化“SequenceSequenceT &boost::algorithm::iter_split<SequenceSequenceT,const char[2049],boost::algorithm::detail::find_regexF<boost::basic_regex<char,boost::regex_traits<char,boost::w32_regex_traits<charT>>>>>(SequenceSequenceT &,RangeT (&),FinderT)”的引用
+          with
+          [
+              SequenceSequenceT=std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>,
+              charT=char,
+              RangeT=const char [2049],
+              FinderT=boost::algorithm::detail::find_regexF<boost::basic_regex<char,boost::regex_traits<char,boost::w32_regex_traits<char>>>>
+          ]
+  d:\project\github\myhttpserver\myhttpserver\consoleapplication1\httpreader.h(118): note: 参见对正在编译的函数 模板 实例化“SequenceSequenceT &boost::algorithm::split_regex<std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<_Ty>>,char[2049],char,boost::regex_traits<char,boost::w32_regex_traits<charT>>>(SequenceSequenceT &,const RangeT (&),const boost::basic_regex<charT,boost::regex_traits<charT,boost::w32_regex_traits<charT>>> &,boost::regex_constants::match_flag_type)”的引用
+          with
+          [
+              SequenceSequenceT=std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>,
+              _Ty=std::basic_string<char,std::char_traits<char>,std::allocator<char>>,
+              charT=char,
+              RangeT=char [2049]
+          ]
+  HTTPApplicationManager.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+d:\project\github\myhttpserver\myhttpserver\consoleapplication1\staticfilemanager.h(3): warning C4067: 预处理器指令后有意外标记 - 应输入换行符

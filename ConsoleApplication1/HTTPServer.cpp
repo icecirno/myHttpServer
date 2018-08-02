@@ -9,13 +9,6 @@ void HTTPServer::commandLine()
 		if (comd == "exit")
 		{
 			enable = 0;
-			for (int i = readers.size() - 1; i >= 0; --i)
-			{
-				debug("fuck reader", i);
-				readers[i]->stop();
-				debug("fucked readers", i);
-				delete readers[i];
-			}
 			for (int i = processor.size() - 1; i >= 0; --i)
 			{
 				debug("fuck processor", i);

@@ -27,6 +27,12 @@
     <ClCompile Include="HTTPApplicationManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="IOServerPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HTTPReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArgumentHandle.h">
@@ -72,6 +78,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="tool">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IOServerPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="application.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

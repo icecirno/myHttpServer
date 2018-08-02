@@ -20,11 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HTTPApplicationManager.cpp" />
+    <ClCompile Include="HTTPReader.cpp" />
     <ClCompile Include="HTTPServer.cpp" />
+    <ClCompile Include="IOServerPool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TCPListener.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application.h" />
     <ClInclude Include="ArgumentHandle.h" />
     <ClInclude Include="CachedStaticFile.h" />
     <ClInclude Include="ConnectionQueue.h" />
@@ -34,6 +37,7 @@
     <ClInclude Include="HTTPResponse.h" />
     <ClInclude Include="HTTPSender.h" />
     <ClInclude Include="HTTPServer.h" />
+    <ClInclude Include="IOServerPool.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="RequestQueue.h" />

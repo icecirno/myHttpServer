@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <web-app> 
-  <static-file-root>/static</static-file-root>  
-  <main-app>/mainapp.dll</main-app>  
-  <processors> 
-    <pro name="processor1">/app1.dll</pro>  
-    <pro name="processor2">/app2.dll</pro> 
-  </processors>  
-  <processor-mapping> 
-    <map url="/hello2">processor2</map>  
-    <map url="/hello1">processor1</map> 
-  </processor-mapping>  
+  <static-file-root>/static</static-file-root>   
+  <main-app>/mainapp.dll</main-app> 
+  <applications> 
+    <map url="/hello2">/testdll.dll</map>  
+  </applications>  
   <file-remapping> 
     <map url="/">/baidu.html</map>  
     <map url="/book">/root/bookManage.html</map>  

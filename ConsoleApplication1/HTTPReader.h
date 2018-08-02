@@ -3,119 +3,82 @@
 #include "ConnectionQueue.h"
 #include "RequestQueue.h"
 #include "HTTPRequest.h"
+#define bufferSize 2048
+
 class HTTPReader
 {
 public:
-	HTTPReader(ConnectionQueue &cqueue, RequestQueue &rqueue):cqueue(cqueue), rqueue(rqueue)
+
+
+	static void handleRead(boost::asio::ip::tcp::socket* s)
 	{
-	}
-	~HTTPReader()
-	{}
-	void stop()
-	{
-		while (enable);
-	}
-	void start(bool *enable)
-	{
-		boost::asio::ip::tcp::socket* s;
-		while (*enable==1)
+		if (s == 0)
+			return;
+		if (!s->is_open())
 		{
-			s = cqueue.get();
-			if (s == 0)
-				goto end;
-			if(!s->is_open())
-				goto end;
-			HTTPRequest *r = new HTTPRequest(s);
-			handleRead(r);
-			continue;
-		end:
-			boost::this_thread::sleep(boost::posix_time::microseconds(100));
-			continue;
-		other:
-			HTTPRequest *Or = cqueue.getOthers();
-			if (Or == 0)
-				goto end;
-			handleRead(Or);
-			continue;
-		}
-		this->enable = 0;
-	}
-	bool handleRead(HTTPRequest*r)
-	{
-		if (r == 0)
-			return 0;
-		if (r->socket == 0)
-			return 0;
-		if (!r->socket->is_open())
-		{
-			r->release();
-			delete r;
-			return 0;
-		}
-		boost::system::error_code ec;
-		if (readRequest(r,ec))
-		{
-			rqueue << r;
-			return 1;
-		}
-		else if (ec.value())
-			debug("readingERROR", ec.value() << ec.message());
-		delete r;
-		return 0;
-	}
-	
-	bool readRequest(HTTPRequest*r,boost::system::error_code& ec, int timeout = 10)
-	{
-		r->buffer = new boost::asio::streambuf(2048);
-		boost::asio::steady_timer timer(r->socket->get_io_context());
-		timer.expires_from_now(std::chrono::nanoseconds(5000000000));
-		timer.async_wait(boost::bind(&HTTPReader::readTimeOut,this, r, boost::asio::placeholders::error));
-		r->headLength += boost::asio::read_until(*(r->socket), *(r->buffer), "\r\n\r\n", ec);
-		if (r->headLength >= 2048)
-		{
-			timer.cancel();
-			return 0;
-		}
-		if (check(r))
-		{
-			timer.cancel();
-			if (complished(r,ec))
-				return 1;
-			return 0;
-		}
-		timer.cancel();
-		return 0;
-	}
-	bool check(HTTPRequest*r)
-	{
-		std::istream is(r->buffer);
-		is.read(r->data, r->headLength);
-		if (r->data[r->headLength - 1] != '\n')
-			return 0;
-		if (r->data[r->headLength - 2] != '\r')
-			return 0;
-		if (r->data[r->headLength - 3] != '\n')
-			return 0;
-		if (r->data[r->headLength - 4] != '\r')
-			return 0;
-		return 1;
-	}
-	void readTimeOut(HTTPRequest*r,boost::system::error_code ec)
-	{
-		if (ec.value() == 0)
-		{
-			debug("readTimeOut", "close socket");
-			r->release();
+			debug("2", 3);
 			return;
 		}
+		HTTPRequest* r = new HTTPRequest(s, bufferSize);
+		readRequest(r);
 	}
-	bool complished(HTTPRequest*r,boost::system::error_code& ec)
+	
+	static void readRequest(HTTPRequest*r)
+	{
+		boost::asio::async_read_until(*(r->socket), *(r->buffer), "\r\n\r\n",
+			boost::bind(&HTTPReader::check, r,
+				boost::asio::placeholders::error,
+				boost::asio::placeholders::bytes_transferred));
+	}
+	static void check(HTTPRequest*r, boost::system::error_code ec, size_t bytes_transferred)
+	{
+		if (ec.value())
+		{
+			debug("readingERROR", ec.value() << ec.message());
+			delete r;
+			return;
+
+		}
+		size_t bodyStickySize = r->buffer->size()-bytes_transferred;
+		debug("headBufferreallsize:", bodyStickySize+ bytes_transferred);
+		debug("bytes_transferred", bytes_transferred);
+		r->headLength = bytes_transferred;
+		std::istream is(r->buffer);
+		r->head->resize(bytes_transferred);
+		is.read(&(*(r->head))[0], bytes_transferred);
+		debug("headsize:", r->head->size());
+		if (r->head->at(bytes_transferred - 1) != '\n')
+			goto end;
+		if (r->head->at(bytes_transferred - 2) != '\r')
+			goto end;
+		if (r->head->at(bytes_transferred - 3) != '\n')
+			goto end;
+		if (r->head->at(bytes_transferred - 4) != '\r')
+			goto end;
+		if (bodyStickySize>0)
+		{
+			r->body.resize(bodyStickySize);
+			is.read(&(r->body)[0], bodyStickySize);
+			r->bodyLength = bodyStickySize;
+		}
+		debug("headsize:", r->head->size());
+		debug("budysize", r->body);
+		complished(r);
+		return;
+	end:
+		delete r;
+		return;
+	}
+	static void complished(HTTPRequest*r)
 	{
 		if (r->headLength < 15)
-			return 0;
+		{
+			delete r; 
+			return;
+		}
 		r->heads = new std::map<std::string, std::string>();
 		std::vector<std::string> v;
-		boost::split_regex(v, r->data, boost::regex(": |\r\n"));// boost::is_any_of(":\r\n"));
+		boost::split_regex(v, *(r->head), boost::regex(": |\r\n"));// boost::is_any_of(":\r\n"));
 		if (boost::ends_with(v[0], "HTTP/1.1"))
 		{
 			size_t p = v[0].find(' ');
@@ -127,13 +90,14 @@ public:
 			{
 				r->afterURL = r->URL.substr(urlsize + 1);
 				Tool::substr(r->URL, v[0], 1 + p, p + 1 + urlsize);
-				r->hasParm = 1;
 			}
 		}
 		else {
 			r->isComplished = 0;
-			return 0;
+			delete r;
+			return ;
 		}
+		size_t bodySize=0;
 		for (int i = 1; i < v.size() - 1; ++i)
 		{
 			if (v[i] == "Host")
@@ -195,46 +159,50 @@ public:
 			{
 				if (r->type == "POST")
 				{
-					int j = Tool::stringToInt(v[i + 1]);
-					if (j < 2048)
-						if (!readBody(r,ec, j))
-							return 0;
+					bodySize = Tool::stringToInt(v[i + 1])- r->bodyLength;
 				}
 				r->heads->insert(strstrPair(v[i], v[i + 1]));
 				++i;
 				continue;
 			}
 		}
-		r->isComplished = 1;
-		return r->isComplished;
+		
+		if (bodySize>0)
+		{			
+			if (bodySize < bufferSize)
+				readBody(r, bodySize);
+			return;
+		}
+		debug("read finished 1", "");
+		r->complished();
+		(*rqueue) << r;
 	}
-	bool readBody(HTTPRequest *r,boost::system::error_code& ec, size_t needread)
+	static void readBody(HTTPRequest *r, size_t needread)
 	{
-		debug("try read body", r->body);
-		size_t in_avail = r->buffer->in_avail();
-		if (in_avail&&in_avail < 2048)
+		debug("try read body", needread);
+		r->bodybuffer = new boost::asio::streambuf(needread);
+		boost::asio::async_read(*(r->socket), *(r->bodybuffer), boost::bind(&HTTPReader::finishRead, r,
+			boost::asio::placeholders::error,
+			boost::asio::placeholders::bytes_transferred));
+		return ;
+	}
+	static void finishRead(HTTPRequest *r, boost::system::error_code ec, size_t bytes_transferred)
+	{
+		if (ec.value())
 		{
-			std::istream is(r->buffer);
-			is.read(r->body, in_avail);
+			debug("readingERROR", ec.value() << ec.message());
+			delete r;
+			return;
 		}
-		boost::system::error_code cec;
-		boost::asio::steady_timer timer(r->socket->get_io_context());
-		timer.expires_from_now(std::chrono::nanoseconds(5000000000));
-		timer.async_wait(boost::bind(&HTTPReader::readTimeOut,this, r, boost::asio::placeholders::error));
-		while (needread > in_avail)
-		{
-			in_avail += r->socket->read_some(boost::asio::buffer(r->body + in_avail, 2048 - in_avail), cec);
-			if (cec)
-			{
-				ec = cec;
-				return 1;
-			}
-		}
-		r->hasParm = 1;
-		return 1;
+		std::istream is(r->bodybuffer);
+		size_t size= r->body.size();
+		r->body.resize(size+ bytes_transferred);
+		is.read(&(r->body)[size], bytes_transferred);
+		r->bodyLength = size + bytes_transferred;
+		debug("read finished 2", r->body<< bytes_transferred);
+		r->complished();
+		(*rqueue) << r;
 	}
 	int enable=1;
-	ConnectionQueue &cqueue;
-	RequestQueue &rqueue;
+	static RequestQueue *rqueue;
 };
-

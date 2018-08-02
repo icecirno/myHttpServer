@@ -6,13 +6,16 @@
 #include <boost/function.hpp>
 #include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
+#include "application.h"
 class StaticFileManager
 {
 	//mainapp;
 	//map<url,app>;
 	std::string mainAppPath;
-	//name,path(all)
-	std::map<std::string, std::string> processors;
+	//url,application object
+	std::map<std::string, application*> applications;
+	//url,dll object
+	std::map<std::string, boost::dll::shared_library*> dlls;
 	//ppp,file
 	std::map<std::string, CachedStaticFile*>cachedFile;
 	//url,ppp
@@ -29,16 +32,40 @@ public:
 		reloadStaticFiles(ah); 
 		reloadAppFiles(ah);
 	}
+	application* getApp(const string& url)
+	{
+		debug("getAPP", url);
+		auto n= applications.find(url);
+		if (n == applications.end())
+			return 0;
+		return n->second;
+	}
+	application* loadDLL(std::string path)
+	{
+		boost::dll::shared_library *lib = new boost::dll::shared_library(path);
+		if (!lib->is_loaded())
+			return 0;
+		if (!lib->has("create"))
+			return 0;
+		debug("dll has loaded", 1);
+		debug("dll has create", 1);
+		debug("dll has location", lib->location());
+
+		boost::function<application*()> creator = lib->get_alias<application*()>(                                        // path to library
+			"create");
+		application* b = creator();
+		return b;
+	}
 	void reloadXML(ArgumentHandle*ah)
 	{
-		boost::filesystem::path sourcePath = (boost::filesystem::current_path() / ah->xmlPath);
+		boost::filesystem::path xmlPath = (boost::filesystem::current_path() / ah->xmlPath);
 		fileMap.clear();
 		advanceFileMap.clear();
-		if (!boost::filesystem::exists(sourcePath))
+		if (!boost::filesystem::exists(xmlPath))
 		{	
 		useDefault:
 			fileMap.clear();
-			debug("Setting file not exists ", sourcePath.string());
+			debug("Setting file not exists ", xmlPath.string());
 			ah->useDefault = 1;
 			fileMap.insert(strstrPair("/", "/baidu.html"));
 			fileMap.insert(strstrPair("/favicon.ico", "/baidu_files/baidu_jgylogo3.gif"));
@@ -47,13 +74,13 @@ public:
 			fileTypes.insert(strstrPair(".css", "text/css"));
 			return;
 		}
-		if (boost::filesystem::is_directory(sourcePath))
+		if (boost::filesystem::is_directory(xmlPath))
 		{
 			goto useDefault;
 		}
-		debug("Found setting xml..." , sourcePath.c_str());
+		debug("Found setting xml..." , xmlPath.c_str());
 		boost::property_tree::ptree xml;
-		boost::property_tree::read_xml(sourcePath.string(), xml);
+		boost::property_tree::read_xml(xmlPath.string(), xml);
 		try {
 			ah->staticPath = xml.get<std::string>("web-app.static-file-root");
 		}
@@ -89,6 +116,25 @@ public:
 		catch (...)
 		{
 			debug("web-app.file-remapping", "get error use default");
+			goto useDefault;
+		}
+		try {
+			auto maps = xml.get_child("web-app.applications");
+			for (auto i = maps.begin(); i != maps.end(); ++i)
+			{
+				std::string url = i->second.get<string>("<xmlattr>.url");
+				application *app = loadDLL(i->second.data());
+				if (app)
+				{
+					
+					debug("Dll "<< i->second.data()<<" loaded", ",error code:"<<app->onLoad());
+					applications.insert(std::pair<std::string, application*>(url, app));					
+				}
+			}
+		}
+		catch (...)
+		{
+			debug("web-app.applications", "get error on loading dll");
 			goto useDefault;
 		}
 	}
@@ -140,25 +186,26 @@ public:
 						ppp[ii] = '/';
 				}
 				allFiles.insert(strstrPair(ppp,strPath));
-				std::string fileType = remapToType(ppp);
-				std::ifstream file;
-				bool isCompress = 1;
-				std::string *data = new std::string();
-				file.open(strPath.c_str(), std::ios::in|std::ios::binary);
-				Tool::getGZIP(data, file);
-				file.close();
-				file.clear();
-
-				debug("get file ppp", ppp);
-				debug("get file path", strPath);
-				debug("datalenth", data->length());
-				CachedStaticFile *csf= new CachedStaticFile(data, ppp, data->size(), isCompress);
-				csf->setType(fileType);
-				cachedFile.insert(FilePair(ppp, csf));
-				fileCount += 1;
+// 				std::string fileType = remapToType(ppp);
+// 				std::ifstream file;
+// 				bool isCompress = 1;
+// 				std::string *data = new std::string();
+// 				file.open(strPath.c_str(), std::ios::in|std::ios::binary);
+// 				Tool::getGZIP(data, file);
+// 				file.close();
+// 				file.clear();
+// 
+// 				debug("get file ppp", ppp);
+// 				debug("get file path", strPath);
+// 				debug("datalenth", data->length());
+// 				CachedStaticFile *csf= new CachedStaticFile(data, ppp, data->size(), isCompress);
+// 				csf->setType(fileType);
+// 				cachedFile.insert(FilePair(ppp, csf));
+// 				fileCount += 1;
 			}
 		}
 	}
+
 	size_t reloadAppFiles(ArgumentHandle*ah)
 	{
 		//load dlls here

@@ -9,6 +9,7 @@
 #include "HTTPReader.h"
 #include "HTTPApplicationManager.h"
 #include "HTTPSender.h"
+
 class HTTPServer
 {
 public:
@@ -16,14 +17,8 @@ public:
 		listener(this,ah), connections()
 	{
 		applicationManager = HTTPApplicationManager::getInstance(ah);
+		HTTPReader::rqueue = &request;
 		boost::thread(boost::bind(&HTTPServer::commandLine, this));
-		for (int i = 0; i < ah->readerCounts; ++i)
-		{
-			HTTPReader *r = new HTTPReader(connections, request);
-			debug("new reader","");
-			readers.push_back(r);
-			boost::thread(boost::bind(&HTTPReader::start, r, &enable));
-		}
 		for (int i = 0; i < ah->readerCounts; ++i)
 		{
 			Processor *r = new Processor(request, response);
@@ -40,21 +35,17 @@ public:
 		}
 		
 	}
-	size_t startlisten()
+	void startlisten()
 	{
-		listener.setCallBack([](HTTPServer *server, boost::asio::ip::tcp::socket *s)
-		{
-			server->connections << s;
-		});
 		return listener.startlisten();
 	}
 	~HTTPServer()
 	{
+		delete applicationManager;
 	}
 	void commandLine();
 	bool enable=1;
-	HTTPApplicationManager *applicationManager;
-	std::vector<HTTPReader*> readers;
+	HTTPApplicationManager *applicationManager=0;
 	std::vector<Processor*> processor;
 	std::vector<HTTPSender*> senders;
 	TCPListener listener;

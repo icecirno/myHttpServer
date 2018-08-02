@@ -81,6 +81,7 @@ public:
 	bool handleError(boost::system::error_code &ec)
 	{
 		return ec.value();
+		debug("get error when sending data:",ec.message());
 	}
 	~HTTPSender() {}
 };

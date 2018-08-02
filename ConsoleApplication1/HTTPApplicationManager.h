@@ -6,10 +6,11 @@
 #include "StaticFileManager.h"
 #include "CachedStaticFile.h"
 
+
+
 class HTTPApplicationManager
 {
 	StaticFileManager files; 
-	
 	HTTPApplicationManager(ArgumentHandle* ah) :files(ah)
 	{}
 	

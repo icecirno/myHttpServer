@@ -92,6 +92,8 @@ public:
 	}
 	HTTPResponse* operator<<(const std::string &body)
 	{
+		addBody(body);
+		return this;
 	}
 	HTTPResponse* operator<<(CachedStaticFile *body)
 	{
