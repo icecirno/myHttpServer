@@ -7,13 +7,13 @@
 #include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
 #include "application.h"
+#include "activity.h";
 class StaticFileManager
 {
-	//mainapp;
-	//map<url,app>;
-	std::string mainAppPath;
+	//mainapp
+	application* mainApplication = 0;
 	//url,application object
-	std::map<std::string, application*> applications;
+	std::map<std::string, activity*> activitys;
 	//url,dll object
 	std::map<std::string, boost::dll::shared_library*> dlls;
 	//ppp,file
@@ -32,28 +32,44 @@ public:
 		reloadStaticFiles(ah); 
 		reloadAppFiles(ah);
 	}
-	application* getApp(const string& url)
+	activity* getActivity(const string& url)
 	{
 		debug("getAPP", url);
-		auto n= applications.find(url);
-		if (n == applications.end())
+		auto n= activitys.find(url);
+		if (n == activitys.end())
 			return 0;
 		return n->second;
 	}
-	application* loadDLL(std::string path)
+	application* loadMainApplicationDLL(std::string path)
 	{
 		boost::dll::shared_library *lib = new boost::dll::shared_library(path);
 		if (!lib->is_loaded())
 			return 0;
-		if (!lib->has("create"))
+		if (!lib->has("createApplication"))
 			return 0;
 		debug("dll has loaded", 1);
 		debug("dll has create", 1);
 		debug("dll has location", lib->location());
 
 		boost::function<application*()> creator = lib->get_alias<application*()>(                                        // path to library
-			"create");
+			"createApplication");
 		application* b = creator();
+		return b;
+	}
+	activity* loadActivityDLL(std::string path)
+	{
+		boost::dll::shared_library *lib = new boost::dll::shared_library(path);
+		if (!lib->is_loaded())
+			return 0;
+		if (!lib->has("createActivity"))
+			return 0;
+		debug("dll has loaded", 1);
+		debug("dll has create", 1);
+		debug("dll has location", lib->location());
+
+		boost::function<activity*()> creator = lib->get_alias<activity*()>(                                        // path to library
+			"createActivity");
+		activity* b = creator();
 		return b;
 	}
 	void reloadXML(ArgumentHandle*ah)
@@ -63,9 +79,10 @@ public:
 		advanceFileMap.clear();
 		if (!boost::filesystem::exists(xmlPath))
 		{	
-		useDefault:
+		
 			fileMap.clear();
 			debug("Setting file not exists ", xmlPath.string());
+		useDefault:
 			ah->useDefault = 1;
 			fileMap.insert(strstrPair("/", "/baidu.html"));
 			fileMap.insert(strstrPair("/favicon.ico", "/baidu_files/baidu_jgylogo3.gif"));
@@ -90,7 +107,9 @@ public:
 			goto useDefault;
 		}
 		try {
-			ah->mainAppPath = xml.get<std::string>("web-app.main-app");
+			ah->mainAppPath = xml.get<std::string>("web-app.application");
+			mainApplication=loadMainApplicationDLL(ah->mainAppPath);
+
 		}
 		catch (...)
 		{
@@ -119,16 +138,17 @@ public:
 			goto useDefault;
 		}
 		try {
-			auto maps = xml.get_child("web-app.applications");
+			
+			auto maps = xml.get_child("web-app.activity");
+			debug("try load activity", maps.size());
 			for (auto i = maps.begin(); i != maps.end(); ++i)
 			{
 				std::string url = i->second.get<string>("<xmlattr>.url");
-				application *app = loadDLL(i->second.data());
+				activity *app = loadActivityDLL(i->second.data());
 				if (app)
 				{
-					
-					debug("Dll "<< i->second.data()<<" loaded", ",error code:"<<app->onLoad());
-					applications.insert(std::pair<std::string, application*>(url, app));					
+					debug("Dll "<< i->second.data()<<" loaded", "error code:"<<app->onLoad(mainApplication));
+					activitys.insert(std::pair<std::string, activity*>(url, app));
 				}
 			}
 		}
@@ -211,19 +231,7 @@ public:
 		//load dlls here
 		return 0;
 	}
-	void* loadMainApplication(std::string path, boost::dll::shared_library*dll)
-	{
-		dll = new boost::dll::shared_library(path);
-		debug("loading MainApplication", path);
-		bool hascreate = dll->has("create"), hasrelease = dll->has("release");
-		debug("dll has create()", hascreate);
-		debug("dll has release()", hasrelease);
-		debug("dll has loaded", dll->location());
-		auto creator = dll->get_alias<void*()>(                                        // path to library
-			"create");
-		void* b = creator();
-		return b;
-	}
+
 	size_t reloadStaticFiles(ArgumentHandle*ah)
 	{
 		boost::filesystem::path sourcePath = (boost::filesystem::current_path() / ah->staticPath);

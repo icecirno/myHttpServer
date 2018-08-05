@@ -27,7 +27,12 @@ public:
 				goto end;
 			if (!r->isComplished)
 				r->complish();
-			handleWrite(r);
+			if (handleWrite(r))
+			{
+				debug("handleRead", "keepalive");
+				if(r->keepalive)
+				HTTPReader::handleRead(r->socket);
+			}
 			delete r;
 			continue;
 		end:
@@ -54,9 +59,9 @@ public:
 			{
 				return 0;
 			}
-			auto j = req->heads->end();
+			auto j = req->heads.end();
 			--j;
-			for(auto i= req->heads->begin();i!= req->heads->end();++i)
+			for(auto i= req->heads.begin();i!= req->heads.end();++i)
 			{ 
 				if(i==j)
 				message = (*i).first +": " +(*i).second+"\r\n\r\n";
@@ -77,6 +82,7 @@ public:
 				}
 			}
 		}
+		return 1;
 	}
 	bool handleError(boost::system::error_code &ec)
 	{

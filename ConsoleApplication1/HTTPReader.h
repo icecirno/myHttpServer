@@ -16,7 +16,7 @@ public:
 			return;
 		if (!s->is_open())
 		{
-			debug("2", 3);
+			delete s;
 			return;
 		}
 		HTTPRequest* r = new HTTPRequest(s, bufferSize);
@@ -83,14 +83,27 @@ public:
 		{
 			size_t p = v[0].find(' ');
 			Tool::substr(r->type, v[0], 0, p);
-			Tool::substr(r->URL, v[0], p + 1, v[0].find(' ', p + 1));
-			size_t urlsize = r->URL.find('?');
-			debug(r->socket->remote_endpoint().address().to_string() << ":" << r->type, r->URL);
-			if (urlsize < r->URL.size())
+			Tool::substr(r->originalURL, v[0], p + 1, v[0].find(' ', p + 1));
+			size_t urlsize = r->originalURL.find('?');
+			if (urlsize < r->originalURL.size())
 			{
-				r->afterURL = r->URL.substr(urlsize + 1);
+				string parm;
+				parm = r->originalURL.substr(urlsize + 1);
 				Tool::substr(r->URL, v[0], 1 + p, p + 1 + urlsize);
+				r->setHasParm(1);
+				std::vector<std::string> pv;
+				boost::split_regex(pv, parm, boost::regex("&|="));// boost::is_any_of(":\r\n"));
+				for (int i = 0; i < pv.size(); i += 2)
+				{
+					if (i + 1 < pv.size())
+						r->parms->insert(strstrPair(pv[i], pv[i + 1]));
+					else
+						r->parms->insert(strstrPair("parm"+ to_string(i/2), pv[i]));
+				}
 			}
+			else
+				r->URL = r->originalURL;
+			debug(r->socket->remote_endpoint().address().to_string() << ":" << r->type, r->originalURL<<" url "<<r->URL);
 		}
 		else {
 			r->isComplished = 0;

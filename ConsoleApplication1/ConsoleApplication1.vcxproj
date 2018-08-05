@@ -21,12 +21,15 @@
   <ItemGroup>
     <ClCompile Include="HTTPApplicationManager.cpp" />
     <ClCompile Include="HTTPReader.cpp" />
+    <ClCompile Include="HTTPRequest.cpp" />
+    <ClCompile Include="HTTPResponse.cpp" />
     <ClCompile Include="HTTPServer.cpp" />
     <ClCompile Include="IOServerPool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TCPListener.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="activity.h" />
     <ClInclude Include="application.h" />
     <ClInclude Include="ArgumentHandle.h" />
     <ClInclude Include="CachedStaticFile.h" />

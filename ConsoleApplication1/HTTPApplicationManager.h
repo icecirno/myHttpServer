@@ -19,7 +19,7 @@ public:
 	~HTTPApplicationManager()
 	{}
 	static HTTPResponse *exec(HTTPRequest*r);
-	static void handleResponse(HTTPResponse &respones, HTTPRequest&request, StaticFileManager& files);
+	static void handleResponse(HTTPResponse *respones, HTTPRequest*request, StaticFileManager& files);
 	static HTTPApplicationManager *instance;
 	static HTTPApplicationManager *getInstance(ArgumentHandle* ah);
 };

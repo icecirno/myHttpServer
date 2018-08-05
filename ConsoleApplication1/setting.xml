@@ -2,10 +2,10 @@
 
 <web-app> 
   <static-file-root>/static</static-file-root>   
-  <main-app>/mainapp.dll</main-app> 
-  <applications> 
-    <map url="/hello2">/testdll.dll</map>  
-  </applications>  
+  <application>/Application.dll</application> 
+  <activity> 
+	<map url="/hello">/Application.dll</map>  
+  </activity>  
   <file-remapping> 
     <map url="/">/baidu.html</map>  
     <map url="/book">/root/bookManage.html</map>  

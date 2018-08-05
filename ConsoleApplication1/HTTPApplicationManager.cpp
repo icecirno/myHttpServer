@@ -1,4 +1,5 @@
 #include "HTTPApplicationManager.h"
+#include "activity.h"
 HTTPApplicationManager *HTTPApplicationManager::instance = 0;
 HTTPResponse *HTTPApplicationManager::exec(HTTPRequest*r)
 {
@@ -8,7 +9,7 @@ HTTPResponse *HTTPApplicationManager::exec(HTTPRequest*r)
 	//if match a processor->remapAll->send
 	//else if match a static file->remapfile->get from cached file/read from disk->send 
 	//else ->send 404;
-	handleResponse(*resp,*r, instance->files);
+	handleResponse(resp,r, instance->files);
 	delete r;
 	return resp;
 	debug("HTTPApplicationManager", "exec");
@@ -19,22 +20,24 @@ HTTPApplicationManager*HTTPApplicationManager::getInstance(ArgumentHandle* ah)
 		instance = new HTTPApplicationManager(ah);
 	return instance;
 }
-void HTTPApplicationManager::handleResponse(HTTPResponse &respones,HTTPRequest&request, StaticFileManager& files)
+void HTTPApplicationManager::handleResponse(HTTPResponse *respones,HTTPRequest*request, StaticFileManager& files)
 {
-	CachedStaticFile* f=files.getFile(files.remapFile(request.URL));
+	CachedStaticFile* f=files.getFile(files.remapFile(request->URL));
+	debug("HTTPApplicationManager", request->URL);
 	if (f)
 	{
-		respones << f;
-		respones.complish();
+		debug("find static file", request->URL);
+		*respones << f;
+		respones->complish();
 		return;
 	}
-	application*app = files.getApp(request.URL);
-	if (app)
+	activity *act = files.getActivity(request->URL);
+	if (act)
 	{
-		app->run(request, respones);
-		respones.complish();
+		act->runActivity(request, respones);
+		respones->complish();
 		return;
 	}
-	respones << f;
-	respones.complish();
+	*respones << f;
+	respones->complish();
 }
