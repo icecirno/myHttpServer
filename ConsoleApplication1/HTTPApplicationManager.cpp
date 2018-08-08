@@ -14,7 +14,7 @@ HTTPResponse *HTTPApplicationManager::exec(HTTPRequest*r)
 	return resp;
 	debug("HTTPApplicationManager", "exec");
 }
-HTTPApplicationManager*HTTPApplicationManager::getInstance(ArgumentHandle* ah) 
+HTTPApplicationManager*HTTPApplicationManager::getInstance(ArgumentHandle* ah)
 {
 	if (instance == 0)
 		instance = new HTTPApplicationManager(ah);
@@ -22,22 +22,30 @@ HTTPApplicationManager*HTTPApplicationManager::getInstance(ArgumentHandle* ah)
 }
 void HTTPApplicationManager::handleResponse(HTTPResponse *respones,HTTPRequest*request, StaticFileManager& files)
 {
-	CachedStaticFile* f=files.getFile(files.remapFile(request->URL));
-	debug("HTTPApplicationManager", request->URL);
+	string url = request->URL;
+	CachedStaticFile* f=files.getFile(files.remapFile(url));
+	debug("HTTPApplicationManager", url);
 	if (f)
 	{
-		debug("find static file", request->URL);
+		debug("find static file", url);
 		*respones << f;
 		respones->complish();
 		return;
 	}
-	activity *act = files.getActivity(request->URL);
-	if (act)
+	pair<runPointer, activity*> act = files.getActivity(request);
+	if (act.second!=0&&act.first!=0)
 	{
-		act->runActivity(request, respones);
-		respones->complish();
-		return;
+		try
+		{
+			debug("find app", url);
+			act.first(request, respones,act.second);
+			respones->complish();
+			return;
+		}
+		catch (...)
+		{
+			debug("get exception when running activity function:", url);
+		}	
 	}
-	*respones << f;
 	respones->complish();
 }

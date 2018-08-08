@@ -3,9 +3,12 @@
   - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
   - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+main.cpp(25): warning C4002: “printl”宏的实参太多
+main.cpp(29): warning C4101: “e”: 未引用的局部变量
+main.cpp(102): warning C4101: “e”: 未引用的局部变量
     正在创建库 D:\project\github\myHttpServer\myHttpServer\x64\Release\Application.lib 和对象 D:\project\github\myHttpServer\myHttpServer\x64\Release\Application.exp
   正在生成代码
-  All 1593 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 1312 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   Application.vcxproj -> D:\project\github\myHttpServer\myHttpServer\x64\Release\Application.dll
   Application.vcxproj -> D:\project\github\myHttpServer\myHttpServer\x64\Release\Application.pdb (Full PDB)

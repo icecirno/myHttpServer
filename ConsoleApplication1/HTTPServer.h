@@ -14,8 +14,9 @@ class HTTPServer
 {
 public:
 	HTTPServer(ArgumentHandle*ah) :
-		listener(this,ah), connections()
+		listener(this,ah)
 	{
+		mainIoService = listener.ioService;
 		applicationManager = HTTPApplicationManager::getInstance(ah);
 		HTTPReader::rqueue = &request;
 		boost::thread(boost::bind(&HTTPServer::commandLine, this));
@@ -28,7 +29,7 @@ public:
 		}
 		for (int i = 0; i < ah->senderCounts; ++i)
 		{
-			HTTPSender *r = new HTTPSender(response, connections);
+			HTTPSender *r = new HTTPSender(response);
 			debug("new HTTPSender", "");
 			senders.push_back(r);
 			boost::thread(boost::bind(&HTTPSender::start, r, &enable));
@@ -48,9 +49,9 @@ public:
 	HTTPApplicationManager *applicationManager=0;
 	std::vector<Processor*> processor;
 	std::vector<HTTPSender*> senders;
+	boost::asio::io_service *mainIoService = 0;
 	TCPListener listener;
 	RequestQueue request;
 	ResponseQueue response;
-	ConnectionQueue connections;
 };
 

@@ -33,8 +33,7 @@ IOServerPool::~IOServerPool()
 	for (int i = services.size()-1; i>=0; --i)
 	{
 		boost::asio::io_service* s = services.at(i);
-		if(s->stopped())
-			continue;
+		if(!s->stopped())
 		s->stop();
 		delete s;
 	}

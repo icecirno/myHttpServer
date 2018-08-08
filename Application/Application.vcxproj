@@ -80,6 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\project\github\myHttpServer\myHttpServer\mysql-connector-c++-8.0.11-windows-x86-64bit\include;$(IncludePath)</IncludePath>
+    <ReferencePath>D:\project\github\myHttpServer\myHttpServer\mysql-connector-c++-8.0.11-windows-x86-64bit\lib64\vs14;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,8 +146,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\project\github\myHttpServer\myHttpServer\x64\Release;F:\template\boost\boost_1_67_0\lib64-msvc-14.0</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Interface.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\project\github\myHttpServer\myHttpServer\mysql-connector-c++-8.0.11-windows-x86-64bit\lib64\vs14;D:\project\github\myHttpServer\myHttpServer\x64\Release;F:\template\boost\boost_1_67_0\lib64-msvc-14.0</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Interface.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

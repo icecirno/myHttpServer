@@ -10,6 +10,13 @@ class IOServerPool
 	static void ioServiceRun(boost::asio::io_service * s);
 public:	
 	static IOServerPool *getInstance(int number = 8);
+	void stopAll()
+	{
+		for (auto i = services.begin(); i != services.end(); ++i)
+		{
+			(*i)->stop();
+		}
+	}
 	boost::asio::io_service *getService()
 	{
 		currentIndex += 1;

@@ -9,14 +9,18 @@ class HTTPReader
 {
 public:
 
-
-	static void handleRead(boost::asio::ip::tcp::socket* s)
+	static void handleRead(boost::asio::ip::tcp::socket* s,bool needDeleteSocket=1)
 	{
 		if (s == 0)
 			return;
 		if (!s->is_open())
 		{
-			delete s;
+			if (needDeleteSocket)
+			{
+				debug("Socket is closed when reading", "delete socket;");
+				delete s;
+			}else
+				debug("Socket is closed when reading", "keep socket;");
 			return;
 		}
 		HTTPRequest* r = new HTTPRequest(s, bufferSize);
@@ -25,6 +29,7 @@ public:
 	
 	static void readRequest(HTTPRequest*r)
 	{
+		debug("readRequest", "");
 		boost::asio::async_read_until(*(r->socket), *(r->buffer), "\r\n\r\n",
 			boost::bind(&HTTPReader::check, r,
 				boost::asio::placeholders::error,
@@ -37,7 +42,6 @@ public:
 			debug("readingERROR", ec.value() << ec.message());
 			delete r;
 			return;
-
 		}
 		size_t bodyStickySize = r->buffer->size()-bytes_transferred;
 		debug("headBufferreallsize:", bodyStickySize+ bytes_transferred);
@@ -67,6 +71,7 @@ public:
 		return;
 	end:
 		delete r;
+		debug("readingERROR", "unknow");
 		return;
 	}
 	static void complished(HTTPRequest*r)
@@ -74,6 +79,7 @@ public:
 		if (r->headLength < 15)
 		{
 			delete r; 
+			debug("readingERROR", "complish error");
 			return;
 		}
 		r->heads = new std::map<std::string, std::string>();
@@ -108,11 +114,13 @@ public:
 		else {
 			r->isComplished = 0;
 			delete r;
+			debug("readingERROR", "complish error");
 			return ;
 		}
 		size_t bodySize=0;
 		for (int i = 1; i < v.size() - 1; ++i)
 		{
+			debug(v[i], v[i + 1]);
 			if (v[i] == "Host")
 			{
 				r->heads->insert(strstrPair(v[i], v[i + 1]));

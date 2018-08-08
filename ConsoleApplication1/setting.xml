@@ -4,7 +4,7 @@
   <static-file-root>/static</static-file-root>   
   <application>/Application.dll</application> 
   <activity> 
-	<map url="/hello">/Application.dll</map>  
+	<map name="hello">/Application.dll</map>  
   </activity>  
   <file-remapping> 
     <map url="/">/baidu.html</map>  

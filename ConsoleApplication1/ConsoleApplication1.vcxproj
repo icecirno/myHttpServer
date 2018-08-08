@@ -41,6 +41,7 @@
     <ClInclude Include="HTTPSender.h" />
     <ClInclude Include="HTTPServer.h" />
     <ClInclude Include="IOServerPool.h" />
+    <ClInclude Include="loadedActivity.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="RequestQueue.h" />

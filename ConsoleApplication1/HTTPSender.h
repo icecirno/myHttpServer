@@ -5,11 +5,10 @@
 class HTTPSender
 {
 	ResponseQueue &responseQueue;
-	ConnectionQueue &connectionQueue;
 	int enable = 1;
 public:
-	HTTPSender(ResponseQueue &rq, ConnectionQueue &cq)
-		:responseQueue(rq), connectionQueue(cq)
+	HTTPSender(ResponseQueue &rq)
+		:responseQueue(rq)
 	{
 
 	}
@@ -29,10 +28,18 @@ public:
 				r->complish();
 			if (handleWrite(r))
 			{
-				debug("handleRead", "keepalive");
-				if(r->keepalive)
-				HTTPReader::handleRead(r->socket);
+				debug("handleWrite", "finished");
+				if (r->keepalive)
+				{
+					debug("handleRead", "keepalive");
+					HTTPReader::handleRead(r->socket, r->needDeleteSocketAfterClosed);
+					r->release(0);
+				}else
+					r->release(1);
+				delete r;
+				continue;
 			}
+			r->release(1);
 			delete r;
 			continue;
 		end:
@@ -73,21 +80,26 @@ public:
 					return 0;
 				}
 			}
-			for (auto i = req->bodys.begin(); i != req->bodys.end(); ++i)
+			if(req->bodyFile)
+				write(*req->socket, boost::asio::buffer(*req->bodyFile->data, req->bodyFile->len), ec);
+			write(*req->socket, boost::asio::buffer(req->body, req->body.size()), ec);
+			if (handleError(ec))
 			{
-				write(*req->socket, boost::asio::buffer((*i), (*i).size()), ec);
-				if (handleError(ec))
-				{
-					return 0;
-				}
+				return 0;
 			}
+			return 1;
 		}
-		return 1;
+		debug("Socket is closed before weite", "");
+		return 0;
 	}
 	bool handleError(boost::system::error_code &ec)
 	{
-		return ec.value();
-		debug("get error when sending data:",ec.message());
+		if (ec.value())
+		{
+			debug("get error when sending data:",ec.value()<< ec.message());
+			return 1;
+		}
+		return 0;
 	}
 	~HTTPSender() {}
 };

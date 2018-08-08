@@ -1,7 +1,7 @@
 #include "HTTPRequest.h"
-
 HTTPRequest::HTTPRequest(boost::asio::ip::tcp::socket* socket, size_t bufferSize)
 {
+
 	this->socket = socket;
 	head = new string();
 	buffer = new boost::asio::streambuf(bufferSize);
@@ -19,8 +19,11 @@ void HTTPRequest::complished()
 	// 			debug(i->first, i->second);
 	// 		}
 	delete buffer;
+	buffer = 0;
 	delete bodybuffer;
+	bodybuffer = 0;
 	delete head;
+	head = 0;
 	isComplished = 1;
 }
 void HTTPRequest::setHasParm(bool b)
@@ -41,22 +44,27 @@ void HTTPRequest::release()
 		socket->close();
 	}
 	socket->release();
-	delete socket;
+	delete socket; 
+	socket = 0;
 }
 HTTPRequest::~HTTPRequest()
 {
 	delete heads;
 	if (parms)
 		delete parms;
+	
+	delete buffer;
+	delete head;
+	delete bodybuffer;
 	if (isComplished)
 		return;
-	if (socket->is_open())
+	if (socket != 0)
 	{
-		socket->cancel();
-		socket->close();
-		delete socket;
+		if (socket->is_open())
+		{
+			socket->cancel();
+			socket->close();
+			delete socket;
+		}
 	}
-	delete buffer;
-	delete heads;
-	delete bodybuffer;
 }

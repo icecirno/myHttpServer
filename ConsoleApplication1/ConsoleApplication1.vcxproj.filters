@@ -95,5 +95,8 @@
     <ClInclude Include="activity.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="loadedActivity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

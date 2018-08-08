@@ -1,21 +1,21 @@
 ﻿#pragma once
 
-#include "tool";
+#include "tool"
 #include "ArgumentHandle.h"
 #include "CachedStaticFile.h"
 #include <boost/function.hpp>
 #include <boost/dll.hpp>
 #include <boost/filesystem.hpp>
 #include "application.h"
-#include "activity.h";
+#include "activity.h"
+#include "loadedActivity.h"
 class StaticFileManager
 {
 	//mainapp
 	application* mainApplication = 0;
 	//url,application object
-	std::map<std::string, activity*> activitys;
-	//url,dll object
-	std::map<std::string, boost::dll::shared_library*> dlls;
+	std::vector<loadedActivity*> activitys;
+	boost::mutex activitysLocker;
 	//ppp,file
 	std::map<std::string, CachedStaticFile*>cachedFile;
 	//url,ppp
@@ -32,42 +32,80 @@ public:
 		reloadStaticFiles(ah); 
 		reloadAppFiles(ah);
 	}
-	activity* getActivity(const string& url)
+	pair<runPointer,activity*> getActivity(HTTPRequest*r)
 	{
+		string url = r->URL;
 		debug("getAPP", url);
-		auto n= activitys.find(url);
-		if (n == activitys.end())
-			return 0;
-		return n->second;
+		runPointer p = 0;
+		activitysLocker.lock();
+		for (auto i=activitys.begin();i!=activitys.end();++i)
+		{
+			if((*i)==0)
+				continue;
+			bool b = 0;
+			try
+			{
+				if((*i)->act!=0)
+				if((*i)->act->hasRouter())
+				{
+					p = (*i)->act->getFunction(url);
+					if (p != 0)
+					{
+						activitysLocker.unlock();
+						return pair<runPointer, activity*>(p, (*i)->act);
+					}
+				}
+				debug("getAPP 1" , b);
+			}
+			catch (...)
+			{
+				debug("get exception when getting activity function:", r->URL);
+				b = 0;
+			}
+		}
+		activitysLocker.unlock();
+		return pair<runPointer, activity*>(0,0);
+	}
+	void unloadALLDll()
+	{
+		for (auto i = activitys.begin(); i != activitys.end(); ++i)
+		{
+			(*i)->act->onUnload();
+			(*i)->dll->unload();
+			delete (*i)->dll;
+		}
+		mainApplication->onUnload();
+
 	}
 	application* loadMainApplicationDLL(std::string path)
 	{
-		boost::dll::shared_library *lib = new boost::dll::shared_library(path);
-		if (!lib->is_loaded())
+		boost::dll::shared_library *dll = new boost::dll::shared_library(path);
+		if (!dll->is_loaded())
 			return 0;
-		if (!lib->has("createApplication"))
+		if (!dll->has("createApplication"))
 			return 0;
 		debug("dll has loaded", 1);
 		debug("dll has create", 1);
-		debug("dll has location", lib->location());
+		debug("dll has location", dll->location());
 
-		boost::function<application*()> creator = lib->get_alias<application*()>(                                        // path to library
+		boost::function<application*()> creator = dll->get_alias<application*()>(                                        // path to library
 			"createApplication");
 		application* b = creator();
 		return b;
 	}
-	activity* loadActivityDLL(std::string path)
+	activity* loadActivityDLL(boost::dll::shared_library *dll)
 	{
-		boost::dll::shared_library *lib = new boost::dll::shared_library(path);
-		if (!lib->is_loaded())
+		if (dll == 0)
 			return 0;
-		if (!lib->has("createActivity"))
+		if (!dll->is_loaded())
+			return 0;
+		if (!dll->has("createActivity"))
 			return 0;
 		debug("dll has loaded", 1);
 		debug("dll has create", 1);
-		debug("dll has location", lib->location());
+		debug("dll has location", dll->location());
 
-		boost::function<activity*()> creator = lib->get_alias<activity*()>(                                        // path to library
+		boost::function<activity*()> creator = dll->get_alias<activity*()>(                                        // path to library
 			"createActivity");
 		activity* b = creator();
 		return b;
@@ -109,7 +147,7 @@ public:
 		try {
 			ah->mainAppPath = xml.get<std::string>("web-app.application");
 			mainApplication=loadMainApplicationDLL(ah->mainAppPath);
-
+			mainApplication->onLoad();
 		}
 		catch (...)
 		{
@@ -143,12 +181,15 @@ public:
 			debug("try load activity", maps.size());
 			for (auto i = maps.begin(); i != maps.end(); ++i)
 			{
-				std::string url = i->second.get<string>("<xmlattr>.url");
-				activity *app = loadActivityDLL(i->second.data());
+				std::string name = i->second.get<string>("<xmlattr>.name");
+				boost::dll::shared_library *dll = new boost::dll::shared_library(i->second.data());
+				activity *app = loadActivityDLL(dll);
 				if (app)
-				{
+				{	
 					debug("Dll "<< i->second.data()<<" loaded", "error code:"<<app->onLoad(mainApplication));
-					activitys.insert(std::pair<std::string, activity*>(url, app));
+					activitysLocker.lock();
+					activitys.push_back(new loadedActivity(name,dll->location().string(),app,dll));
+					activitysLocker.unlock();
 				}
 			}
 		}

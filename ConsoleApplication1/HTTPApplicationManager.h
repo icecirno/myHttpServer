@@ -6,8 +6,6 @@
 #include "StaticFileManager.h"
 #include "CachedStaticFile.h"
 
-
-
 class HTTPApplicationManager
 {
 	StaticFileManager files; 
@@ -18,9 +16,13 @@ public:
 	
 	~HTTPApplicationManager()
 	{}
+	void unloadALLDll()
+	{
+		files.unloadALLDll();
+	}
 	static HTTPResponse *exec(HTTPRequest*r);
 	static void handleResponse(HTTPResponse *respones, HTTPRequest*request, StaticFileManager& files);
 	static HTTPApplicationManager *instance;
-	static HTTPApplicationManager *getInstance(ArgumentHandle* ah);
+	static HTTPApplicationManager *getInstance( ArgumentHandle* ah);
 };
 

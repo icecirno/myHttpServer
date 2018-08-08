@@ -8,7 +8,10 @@ void HTTPServer::commandLine()
 
 		if (comd == "exit")
 		{
-			enable = 0;
+			enable = 0; 
+			applicationManager->unloadALLDll();
+			if (listener.isListening())
+				listener.stop();
 			for (int i = processor.size() - 1; i >= 0; --i)
 			{
 				debug("fuck processor", i);
@@ -23,14 +26,8 @@ void HTTPServer::commandLine()
 				debug("fucked processor", i);
 				delete senders[i];
 			}
-			connections.clear();
-			if (listener.isListening())
-				listener.stop();
+			
 			return;
-		}
-		else if (comd == "size")
-		{
-			debug("connection counts", connections.size());
 		}
 		else if (comd == "clear")
 		{

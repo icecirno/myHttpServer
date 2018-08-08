@@ -38,6 +38,7 @@ public:
 	void stop()
 	{
 		enable = 0;
+		ioServerPool->stopAll();
 		ioService->stop();
 		debug("Tcplistener", "stoped");
 	}
@@ -57,12 +58,13 @@ public:
 	{
 		return enable;
 	}
+	boost::asio::io_service *ioService=0;
 private:
 	int port = 80;
 	bool enable=0;
-	IOServerPool *ioServerPool=0;
-	boost::asio::io_service *ioService=0;
+	
 	HTTPServer* server;
+	IOServerPool *ioServerPool=0;
 	boost::asio::ip::tcp::acceptor *acceptor;
 	
 };

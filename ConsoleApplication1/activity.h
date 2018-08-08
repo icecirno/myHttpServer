@@ -4,10 +4,15 @@
 #include "HTTPRequest.h"
 #include "HTTPResponse.h"
 #include "application.h"
+class activity;
+typedef bool(*runPointer)(HTTPRequest *, HTTPResponse *, activity*);
+#define addRouter(ROUTER,...) bool hasRouter() { return 1; }runPointer getFunction(string url){ROUTER __VA_ARGS__ return 0;}
+#define router(X,Y) if (url == X)return Y;
 class activity
 {
 public:
+	virtual runPointer getFunction(string url) { return 0; }
+	virtual bool hasRouter(){ return 0; }
 	virtual int onLoad(application*app) = 0;
 	virtual void onUnload() = 0;
-	virtual bool runActivity(HTTPRequest*r, HTTPResponse* result) = 0;
 };

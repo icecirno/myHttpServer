@@ -24,6 +24,5 @@ public:
 	void complished();
 	void release();
 	~HTTPRequest();
-
 };
 
